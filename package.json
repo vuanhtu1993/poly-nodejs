@@ -1,0 +1,23 @@
+{
+  "name": "poly-nodejs",
+  "version": "1.0.0",
+  "description": "``` // Tạo mới file package.json npm init ```",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuanhtu1993/poly-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vuanhtu1993/poly-nodejs/issues"
+  },
+  "homepage": "https://github.com/vuanhtu1993/poly-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
