@@ -1,6 +1,7 @@
 // Modules
 const fs = require('fs')
 const http = require('http')
+const path = require('path')
 
 // const file = fs.readFileSync(__dirname + "/text.txt")
 // console.log(file.toString());
@@ -11,7 +12,7 @@ const server = http.createServer((request, response) => {
         "Content-Type": "text/html"
     })
     if (request.url == "/") {
-        const home = fs.readFileSync(__dirname + "/home.html", "utf-8")
+        const home = fs.readFileSync(path.join(__dirname, "text.txt"), "utf-8")
         response.write(home)
     } else if(request.url == "/product") {
         const html = `
