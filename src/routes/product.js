@@ -1,13 +1,6 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 
-const app = express()
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
-app.use(bodyParser.json())
+const router = express.Router()
 
 const books = [
     {id: 1, name: "Book 1", price: 100},
@@ -15,16 +8,18 @@ const books = [
     {id: 3, name: "Book 3", price: 100},
 ]
 
-app.get('/', (req, res) => {
-    res.end("Successfully")
+
+router.use((req, res, next) => {
+    console.log("Product router");
+    next()
 })
 
-app.get('/products', (req, res) => {
+router.get('/products', (req, res) => {
     res.send(books)
     res.end()
 })
 
-app.get('/products/:id', (req, res) => {
+router.get('/products/:id', (req, res) => {
     const id = req.params.id
     const book = books.find(item => item.id == id)
     if (book) {
@@ -35,12 +30,12 @@ app.get('/products/:id', (req, res) => {
     res.end()
 })
 
-app.post('/products', (req, res) => {
+router.post('/products', (req, res) => {
     const data = req.body
     res.send(data)
 })
 
-app.put('/products/:id', (req, res) => {
+router.put('/products/:id', (req, res) => {
     const id = req.params.id
     const data = req.body
     const bookIndex = books.findIndex(item => item.id == id)
@@ -53,6 +48,4 @@ app.put('/products/:id', (req, res) => {
     }
 })
 
-app.listen(8000, () => {
-    console.log("Server running on port 8000");
-})
+module.exports = router
