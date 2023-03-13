@@ -1,9 +1,13 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const path = require('path')
-const productRouter = require('./routes/product')
+import express from 'express'
+import bodyParser from 'body-parser'
+import morgan from 'morgan'
+import path from 'path'
+import { fileURLToPath } from 'url';
+import productRouter from './routes/product.js'
 const app = express()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
