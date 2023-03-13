@@ -8,12 +8,6 @@ const books = [
     {id: 3, name: "Book 3", price: 100},
 ]
 
-
-router.use((req, res, next) => {
-    console.log("Product router");
-    next()
-})
-
 router.get('/products', (req, res) => {
     res.send(books)
     res.end()
