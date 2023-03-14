@@ -37,18 +37,6 @@ const upload = multer({
 
 
 // Router
-app.get('/', (req, res) => {
-    const html = fs.readFileSync(path.join(__dirname, "views/index.html"), "utf-8")
-    res.send(html)
-})
-
-app.post('/upload-image', upload.single('image'), async function (req, res) {
-    const imageName = uuid() + ".png"
-    const imagePath = path.join(__dirname, `/public/${imageName}`);
-    console.log(req.file.buffer);
-    await sharp(req.file.buffer).toFile(imagePath)
-    res.end(imageName)
-});
 app.use('/api', productRouter)
 app.use('/api', imageRouter)
 
