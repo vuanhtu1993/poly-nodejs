@@ -1,10 +1,10 @@
-import path from 'path'
-import fs from 'fs'
-import multer from 'multer'
-import sharp from 'sharp'
-import {uuid} from 'uuidv4'
-import { fileURLToPath } from 'url';
+function getRandomFileName() {
+    var timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+    var random = ("" + Math.random()).substring(2, 8);
+    var random_number = timestamp + random;
+    return random_number.toLowerCase();
+}
 
-
-export const __filename = fileURLToPath(import.meta.url);
-export const __dirname = path.dirname(__filename);
+export {
+    getRandomFileName
+}
