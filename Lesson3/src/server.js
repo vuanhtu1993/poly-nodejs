@@ -3,8 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
-import productRouter from './routers/product.js'
-import fileRouter from './routers/image.js'
+import productRouter from './routers/product'
+import fileRouter from './routers/file'
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
