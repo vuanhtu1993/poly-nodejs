@@ -1,33 +1,13 @@
 import express from 'express'
+import { createProduct, getProduct, getProductById } from '../controllers/product.js'
 
 const router = express.Router()
 
-const books = [
-    {id: 1, name: "Book 1", price: 100},
-    {id: 2, name: "Book 2", price: 100},
-    {id: 3, name: "Book 3", price: 100},
-]
+router.get('/products', getProduct)
 
-router.get('/products', (req, res) => {
-    res.send(books)
-    res.end()
-})
+router.get('/products/:id', getProductById)
 
-router.get('/products/:id', (req, res) => {
-    const id = req.params.id
-    const book = books.find(item => item.id == id)
-    if (book) {
-        res.send(book)
-    } else {
-        res.status(404).send("Sản phẩm không tồn tại")
-    }
-    res.end()
-})
-
-router.post('/products', (req, res) => {
-    const data = req.body
-    res.send(data)
-})
+router.post('/products', createProduct)
 
 router.put('/products/:id', (req, res) => {
     const id = req.params.id

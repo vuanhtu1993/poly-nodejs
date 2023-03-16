@@ -2,8 +2,7 @@ import express from 'express'
 import multer from 'multer'
 import sharp from 'sharp'
 import path from 'path'
-import { uuid } from 'uuidv4'
-import { __dirname } from '../server'
+import { __dirname } from '../server.js'
 import { getRandomFileName } from '../ultilities'
 
 const router = express.Router()
