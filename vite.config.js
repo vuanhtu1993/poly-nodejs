@@ -1,16 +1,3 @@
-### Step 1:
-```
-// Tạo mới file package.json
-npm init
-```
-### Nodejs có san mot so module nhu sau
-#### http
-####
-
-## Install vite for nodejs
-- Bước 1: npm i vite vite-plugin-node -D
-- Bước 2: Tạo 1 file vite.config.js
-```js
 import { defineConfig } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
 
@@ -73,15 +60,3 @@ export default defineConfig({
         // ],
     },
 });
-
-```
-- Bước 3: Thay đổi file package.json 
-```json
-    "dev": "vite" 
-```
-- Bước 4: Thêm code cuối file app.js
-```js
-    // server.js
-    export const viteNodeApp = app;
-```
-- Bước 5: npm run dev
