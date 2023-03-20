@@ -85,3 +85,13 @@ export default defineConfig({
     export const viteNodeApp = app;
 ```
 - Bước 5: npm run dev
+
+
+### Cài đat mongodb
+#### 1. MongoDB Community Server Download
+#### 2. MongoDB compass
+
+mongod --dbpath ~/data/db 
+
+mongodb://localhost:27017
+mongodb://127.0.0.1:27017
