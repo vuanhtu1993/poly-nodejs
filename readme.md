@@ -95,3 +95,5 @@ mongod --dbpath ~/data/db
 
 mongodb://localhost:27017
 mongodb://127.0.0.1:27017
+
+#### 3. Cai dat mongoose + Ket noi voi CSDL
