@@ -3,6 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+
 import productRouter from './routers/product'
 import fileRouter from './routers/file'
 
@@ -23,6 +25,14 @@ app.use(express.static("src/public"))
 // Router
 app.use('/api', productRouter)
 app.use('/upload', fileRouter)
+
+// Connect MongoDB
+// 1. Cài đặt mongoose
+// 2. Connect với MongoDB
+// 3. Tạo model
+// 4. Query trong controller
+mongoose.connect("mongodb://localhost:27017/we17317")
+.then(() => console.log("Connect to db sucessfully"))
 
 app.get('/', (req, res) => {
     const html = fs.readFileSync(path.join(__dirname, "views/home.html"), "utf-8")

@@ -1,4 +1,5 @@
 import Joi from "joi"
+import productSchema from '../models/product'
 
 const data = [
     { id: 1, name: "Chuột", price: 100 },
@@ -6,9 +7,11 @@ const data = [
     { id: 3, name: "Màn hình", price: 500 },
 ]
 
-const productSchema = Joi.object({
+const productValidate = Joi.object({
     name: Joi.string().required(),
-    price: Joi.number().min(100).required()
+    price: Joi.number().min(100).required(),
+    description: Joi.string(),
+    thumbnail: Joi.string()
 })
 
 export const getProduct = (req, res) => {
@@ -42,16 +45,20 @@ export const getProductById = (req, res) => {
     }
 }
 
-export const createProduct = (req, res) => {
+export const createProduct = async (req, res) => {
     const newData = req.body
-    const {error} = productSchema.validate(newData, {abortEarly: false})
+    const {error} = productValidate.validate(newData, {abortEarly: false})
     if(error) {
         res.status(400).send({
             errors : error.details.map(e => e.message)
         })
     } else {
+        // Them vao DB
+        const data = await productSchema.create(newData)
+        console.log(data);
         res.send({
-            message: "Thêm mới thành công"
+            message: "Thêm mới thành công",
+            data: data
         })
         res.end()
     }
