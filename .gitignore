@@ -1,2 +1,5 @@
 node_modules
 src/public/**
+yarn.lock
+.gitignore
+Lesson3/package-lock.json
