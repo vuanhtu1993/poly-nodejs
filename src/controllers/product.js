@@ -30,13 +30,20 @@ export const getProductById = async (req, res) => {
     res.end()
 }
 
+const Specification = Joi.object({
+    code: Joi.string().required(),
+    name: Joi.string().required(),
+    value: Joi.string().required(),
+})
+
 const productValidate = Joi.object({
     name: Joi.string().required().messages({
         "string.empty": "{#label} Trường dữ liệu bắt buộc"
     }),
     price: Joi.number().required(),
     thumbnail: Joi.string(),
-    description: Joi.string()
+    description: Joi.string(),
+    specifications: Joi.array().items(Specification).min(1).required()
 })
 // const productSchema = object({
 //     name: string().required("Tên sản phẩm bắt buộc"),
