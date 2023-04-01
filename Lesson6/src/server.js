@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import bodyParser from "body-parser";
 
 import userRouter from "./routers/user";
+import productRouter from "./routers/product";
 
 const app = express()
 const port = 8080
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 // Router
 app.use('/auth', userRouter)
+app.use('/product', productRouter)
 
 // MongoDB
 mongoose.connect("mongodb://localhost:27017/we17317")
