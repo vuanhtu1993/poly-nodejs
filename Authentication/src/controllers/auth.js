@@ -1,6 +1,7 @@
 import User from '../models/auth'
 import Joi from 'joi'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -58,26 +59,31 @@ export const signin = async(req, res) => {
     try {
         const body = req.body
         const {error} = signinSchema.validate(body)
-        console.log(body);
-        if (!error) {
-            const user = await User.findOne({email: body.email})
-            if(user) {
-                if(bcrypt.compareSync(body.password, user.password)) {
-                    res.send({
-                        message: "Đăng nhập thành công",
-                        data: user
-                    })
-                } else {
-                    res.status(400).send({
-                        message: "Tên đăng nhập hay mật khẩu không chính xác",
-                    })
-                } 
-            } else {
-                res.status(400).send({
-                    message: "Tên đăng nhập hay mật khẩu không chính xác",
-                })
-            }
+        if (error) {
+            return res.status(400).send({
+                message: err
+            })
         }
+
+        const user = await User.findOne({email: body.email})
+        if (!user) {
+            return res.status(400).send({
+                message: "Tên đăng nhập hay mật khẩu không chính xác",
+            })
+        }
+        const isValidate = bcrypt.compareSync(body.password, user.password)
+        if (!isValidate) {
+            return res.status(400).send({
+                message: "Tên đăng nhập hay mật khẩu không chính xác",
+            })
+        }
+        const accessToken = jwt.sign({_id: user._id, email: user.email}, "we17317", {expiresIn: "5m"})
+        console.log(accessToken, "xxxxxxx");
+        return res.send({
+            message: "Đăng nhập thành công",
+            user,
+            accessToken,
+        })
     }catch(err) {
         res.status(500).send({
             message: err
