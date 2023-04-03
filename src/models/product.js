@@ -12,6 +12,10 @@ const productSchema = new Schema({
     price: {
         type: Number
     },
+    brandId: {
+        type: Schema.ObjectId,
+        ref: "brand"
+    },
     createdAt: {
         type: Date,
         default: Date.now

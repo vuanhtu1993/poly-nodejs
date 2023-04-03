@@ -9,6 +9,7 @@ import cors from 'cors'
 import productRouter from './routes/product.js'
 import imageRouter from './routes/image.js'
 import crawlRouter from './routes/crawl.js';
+import brandRouter from './routes/brand.js';
 const app = express()
 
 export const __filename = fileURLToPath(import.meta.url);
@@ -38,6 +39,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 // Router
 app.use('/api', productRouter)
+app.use('/api', brandRouter)
 app.use('/api', imageRouter)
 app.use('/crawl', crawlRouter)
 

@@ -8,7 +8,7 @@ const books = [
 ]
 
 export const getProduct = async (req, res) => {
-    const data = await productSchema.find()
+    const data = await productSchema.find().populate('brand')
     res.send({
         message: "success",
         data: data
@@ -18,7 +18,9 @@ export const getProduct = async (req, res) => {
 
 export const getProductById = async (req, res) => {
     const id = req.params.id
-    const data = await productSchema.findById(id)
+    const data = await productSchema.findById(id).populate({
+        path: "brandId"
+    })
     if (data) {
         res.send({
             message: "success",
@@ -43,7 +45,8 @@ const productValidate = Joi.object({
     price: Joi.number().required(),
     thumbnail: Joi.string(),
     description: Joi.string(),
-    specifications: Joi.array().items(Specification).min(1).required()
+    specifications: Joi.array().items(Specification).min(1).required(),
+    brandId: Joi.string()
 })
 // const productSchema = object({
 //     name: string().required("Tên sản phẩm bắt buộc"),
