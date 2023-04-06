@@ -1,14 +1,25 @@
 import Joi from "joi"
-import {object, string, number} from 'yup'
+import { object, string, number } from 'yup'
 import productSchema from "../models/product"
 const books = [
-    {id: 1, name: "Book 1", price: 100},
-    {id: 2, name: "Book 2", price: 100},
-    {id: 3, name: "Book 3", price: 100},
+    { id: 1, name: "Book 1", price: 100 },
+    { id: 2, name: "Book 2", price: 100 },
+    { id: 3, name: "Book 3", price: 100 },
 ]
 
 export const getProduct = async (req, res) => {
-    const data = await productSchema.find().populate('brand')
+
+    const { textSearch, sort, filter, pagination } = req.query
+    console.log(textSearch);
+
+    const query = {}
+    if (textSearch) {
+        query["$text"] = {
+            $search: textSearch
+        }
+    }
+
+    const data = await productSchema.find(query).populate('brandId')
     res.send({
         message: "success",
         data: data
@@ -56,8 +67,8 @@ export const createProduct = async (req, res) => {
     try {
         const data = req.body
         // console.log(data, typeof data,"dataaaaa");
-        const {error} = productValidate.validate(data, {abortEarly: false})
-        if(error) {
+        const { error } = productValidate.validate(data, { abortEarly: false })
+        if (error) {
             res.status(400).send({
                 message: error.details?.map(e => e.message)
             })
@@ -70,11 +81,11 @@ export const createProduct = async (req, res) => {
                 data: product
             })
             res.end()
-        } 
-    } catch(err) {
+        }
+    } catch (err) {
         res.status(500).end({
             message: err.message
         })
     }
-      
+
 }
